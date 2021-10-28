@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EducateApp.ViewModels.Account
 {
-    public class LoginViewModel : Controller
+    public class LoginViewModel
     {
         [Required(ErrorMessage = "Введите E-mail")]
         [Display(Name = "E-mail")]
