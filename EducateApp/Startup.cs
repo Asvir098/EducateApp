@@ -33,7 +33,8 @@ namespace EducateApp
             services.AddTransient<IUserValidator<User>, CustomUserValidator>();
 
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<AppCtx>();
+                .AddEntityFrameworkStores<AppCtx>()
+                .AddDefaultTokenProviders(); //генерация токенов, которые отсылаются в письме для подтверждения
 
             services.AddControllersWithViews();
         }
