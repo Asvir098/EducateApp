@@ -1,6 +1,6 @@
 ﻿using EducateApp.Models;
 using EducateApp.Models.Data;
-using EducateApp.ViewModels.Disciplines;
+using EducateApp.ViewModels.Attestations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 namespace EducateApp.Controllers
 {
     [Authorize(Roles = "admin, registeredUser")]
-    public class DisciplinesController : Controller
+    public class AttestationsController : Controller
     {
         private readonly AppCtx _context;
         private readonly UserManager<User> _userManager;
 
-        public DisciplinesController(
+        public AttestationsController(
             AppCtx context,
             UserManager<User> user)
         {
@@ -24,23 +24,23 @@ namespace EducateApp.Controllers
             _userManager = user;
         }
 
-        // GET: Disciplines
+        // GET: Attestations
         public async Task<IActionResult> Index()
         {
             // находим информацию о пользователе, который вошел в систему по его имени
             IdentityUser user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
 
-            // через контекст данных получаем доступ к таблице базы данных Disciplines
-            var appCtx = _context.Disciplines
-                .Include(d => d.User)                // и связываем с таблицей пользователи через класс User
-                .Where(d => d.IdUser == user.Id)     // устанавливается условие с выбором записей дисциплин текущего пользователя по его Id
-                .OrderBy(d => d.Discip);          // сортируем все записи по имени дисциплины
+            // через контекст данных получаем доступ к таблице базы данных Attestations
+            var appCtx = _context.Attestations
+                .Include(a => a.User)                // и связываем с таблицей пользователи через класс User
+                .Where(a => a.IdUser == user.Id)     // устанавливается условие с выбором записей дисциплин текущего пользователя по его Id
+                .OrderBy(a => a.Attest);          // сортируем все записи по имени аттустации
 
             // возвращаем в представление полученный список записей
             return View(await appCtx.ToListAsync());
         }
 
-        // GET: Disciplines/Create
+        // GET: Attestations/Create
         public IActionResult Create()
         {
             return View();
@@ -48,33 +48,33 @@ namespace EducateApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateDisciplineViewModel model)
+        public async Task<IActionResult> Create(CreateAttestationViewModel model)
         {
             IdentityUser user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
 
-            if (_context.Disciplines
-                .Where(d => d.IdUser == user.Id &&
-                d.Discip == model.Discip).FirstOrDefault() != null)
+            if (_context.Attestations
+                .Where(a => a.IdUser == user.Id &&
+                a.Attest == model.Attest).FirstOrDefault() != null)
             {
-                ModelState.AddModelError("", "Введеныя дисциплина уже существует");
+                ModelState.AddModelError("", "Введеныя аттестация уже существует");
             }
 
             if (ModelState.IsValid)
             {
-                Discipline discipline = new()
+                Attestation attestation = new()
                 {
-                    Discip = model.Discip,
+                    Attest = model.Attest,
                     IdUser = user.Id
                 };
 
-                _context.Add(discipline);
+                _context.Add(attestation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
         }
 
-        // GET: Disciplines/Edit/5
+        // GET: Attestations/Edit/5
         public async Task<IActionResult> Edit(short? id)
         {
             if (id == null)
@@ -82,17 +82,17 @@ namespace EducateApp.Controllers
                 return NotFound();
             }
 
-            var discipline = await _context.Disciplines.FindAsync(id);
-            if (discipline == null)
+            var attestation = await _context.Attestations.FindAsync(id);
+            if (attestation == null)
             {
                 return NotFound();
             }
 
-            EditDisciplineViewModel model = new()
+            EditAttestationViewModel model = new()
             {
-                Id = discipline.Id,
-                Discip = discipline.Discip,
-                IdUser = discipline.IdUser
+                Id = attestation.Id,
+                Attest = attestation.Attest,
+                IdUser = attestation.IdUser
             };
 
             return View(model);
@@ -100,20 +100,20 @@ namespace EducateApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(short id, EditDisciplineViewModel model)
+        public async Task<IActionResult> Edit(short id, EditAttestationViewModel model)
         {
             IdentityUser user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
 
-            if (_context.Disciplines
-                .Where(d => d.IdUser == user.Id &&
-                d.Discip == model.Discip).FirstOrDefault() != null)
+            if (_context.Attestations
+                .Where(a => a.IdUser == user.Id &&
+                a.Attest == model.Attest).FirstOrDefault() != null)
             {
                 ModelState.AddModelError("", "Введеныя аттестация уже существует");
             }
 
-            Discipline discipline = await _context.Disciplines.FindAsync(id);
+            Attestation attestation = await _context.Attestations.FindAsync(id);
 
-            if (id != discipline.Id)
+            if (id != attestation.Id)
             {
                 return NotFound();
             }
@@ -122,13 +122,13 @@ namespace EducateApp.Controllers
             {
                 try
                 {
-                    discipline.Discip = model.Discip;
-                    _context.Update(discipline);
+                    attestation.Attest = model.Attest;
+                    _context.Update(attestation);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DisciplineExists(discipline.Id))
+                    if (!AttestationExists(attestation.Id))
                     {
                         return NotFound();
                     }
@@ -142,7 +142,7 @@ namespace EducateApp.Controllers
             return View(model);
         }
 
-        // GET: Disciplines/Delete/5
+        // GET: Attestations/Delete/5
         public async Task<IActionResult> Delete(short? id)
         {
             if (id == null)
@@ -150,29 +150,29 @@ namespace EducateApp.Controllers
                 return NotFound();
             }
 
-            var discipline = await _context.Disciplines
-                .Include(d => d.User)
+            var attestation = await _context.Attestations
+                .Include(a => a.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (discipline == null)
+            if (attestation == null)
             {
                 return NotFound();
             }
 
-            return View(discipline);
+            return View(attestation);
         }
 
-        // POST: Disciplines/Delete/5
+        // POST: Attestations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(short id)
         {
-            var discipline = await _context.Disciplines.FindAsync(id);
-            _context.Disciplines.Remove(discipline);
+            var attestation = await _context.Attestations.FindAsync(id);
+            _context.Attestations.Remove(attestation);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Disciplines/Details/5
+        // GET: Attestations/Details/5
         public async Task<IActionResult> Details(short? id)
         {
             if (id == null)
@@ -180,21 +180,21 @@ namespace EducateApp.Controllers
                 return NotFound();
             }
 
-            var discipline = await _context.Disciplines
-                .Include(d => d.User)
+            var attestation = await _context.Attestations
+                .Include(a => a.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (discipline == null)
+            if (attestation == null)
             {
                 return NotFound();
             }
 
-            return View(discipline);
+            return View(attestation);
         }
 
-        private bool DisciplineExists(short id)
+        private bool AttestationExists(short id)
         {
-            return _context.Disciplines.Any(e => e.Id == id);
+            return _context.Attestations.Any(e => e.Id == id);
         }
     }
 }

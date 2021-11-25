@@ -1,23 +1,25 @@
-﻿@model EducateApp.Models.Data.Discipline
+﻿@model EducateApp.Models.Data.Attestation
 
 @{
-    ViewData["Title"] = "Дисциплины";
+    ViewData["Title"] = "Аттестации";
 }
 
 <h3>
     <a class="btn text-dark" asp-action="Index" title="Вернуться к списку">
         <i class="fas fa-arrow-left"></i>
     </a>
-    Просмотр дисциплины
+    Просмотр аттестации
 </h3>
 
 <div>
+    <h4>Attestation</h4>
+    <hr />
     <dl class="row">
         <dt class = "col-sm-3">
-            @Html.DisplayNameFor(model => model.Discip)
+            @Html.DisplayNameFor(model => model.Attest)
         </dt>
         <dd class = "col-sm-9">
-            @Html.DisplayFor(model => model.Discip)
+            @Html.DisplayFor(model => model.Attest)
         </dd>
     </dl>
 </div>

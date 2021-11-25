@@ -1,13 +1,13 @@
-﻿@model EducateApp.ViewModels.Disciplines.CreateDisciplineViewModel
+﻿@model EducateApp.ViewModels.Attestations.CreateAttestationViewModel
 
 @{
-    ViewData["Title"] = "Создание - Дисциплины";
+    ViewData["Title"] = "Создание - Аттестации";
 }
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index"></a>Главная</li>
-        <li class="breadcrumb-item"><a asp-controller="Disciplines" asp-action="Index">Дисциплины</a></li>
+        <li class="breadcrumb-item"><a asp-controller="Attestations" asp-action="Index">Аттестации</a></li>
         <li class="breadcrumb-item active">Создание</li>
     </ol>
 </nav>
@@ -16,18 +16,18 @@
     <a class="btn text-dark" asp-action="Index" title="Вернутся к списку">
         <i class="fas fa-arrow-left"></i>
     </a>
-    Добавление дисциплины
+    Добавление аттестации
 </h3>
 <hr />
 
 <div class="row">
     <div class="col-md-5">
-        <form method="post" asp-controller="Disciplines" asp-action="Create">
+        <form method="post" asp-controller="Attestations" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Discip" class="control-label"></label>
-                <input asp-for="Discip" class="form-control" />
-                <span asp-validation-for="Discip" class="text-danger"></span>
+                <label asp-for="Attest" class="control-label"></label>
+                <input asp-for="Attest" class="form-control" />
+                <span asp-validation-for="Attest" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Добавить" class="btn btn-primary" />

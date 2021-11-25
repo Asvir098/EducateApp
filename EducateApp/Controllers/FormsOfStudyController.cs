@@ -103,6 +103,15 @@ namespace EducateApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(short id, EditFormOfStudyViewModel model)
         {
+            IdentityUser user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+
+            if (_context.FormsOfStudy
+                .Where(f => f.IdUser == user.Id &&
+                f.FormOfEdu == model.FormOfEdu).FirstOrDefault() != null)
+            {
+                ModelState.AddModelError("", "Введеныя аттестация уже существует");
+            }
+
             FormOfStudy formOfStudy = await _context.FormsOfStudy.FindAsync(id);
 
             if (id != formOfStudy.Id)
