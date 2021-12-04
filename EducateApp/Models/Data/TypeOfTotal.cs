@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EducateApp.Models.Data
 {
-    public class Attestation
+    public class TypeOfTotal
     {
         // Key - поле первичный ключ
         // DatabaseGenerated(DatabaseGeneratedOption.Identity) - поле автоинкременое
@@ -13,7 +13,7 @@ namespace EducateApp.Models.Data
 
         [Required(ErrorMessage = "Введите название аттестации")]
         [Display(Name = "Аттестация")]
-        public string Attest { get; set; }
+        public string CertificateName { get; set; }
 
         // так как у каждого пользователя (преподавателя) свой список аттестаций, то нужно указывать внешний ключ
         [Required]

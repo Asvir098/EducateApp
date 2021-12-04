@@ -16,6 +16,6 @@ namespace EducateApp.Models
 
         public DbSet<Discipline> Disciplines { get; set; }
 
-        public DbSet<Attestation> Attestations { get; set; }
+        public DbSet<TypeOfTotal> TypesOfTotals { get; set; }
     }
 }

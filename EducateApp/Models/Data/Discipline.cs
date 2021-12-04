@@ -8,12 +8,28 @@ namespace EducateApp.Models.Data
         // Key - поле первичный ключ
         // DatabaseGenerated(DatabaseGeneratedOption.Identity) - поле автоинкременое
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Display(Name = "ИД")]
+        [Display(Name = "Идентификатор")]
         public short Id { get; set; }
 
-        [Required(ErrorMessage = "Введите название дисциплины")]
-        [Display(Name = "Дисциплина")]
-        public string Discip { get; set; }
+        [Required(ErrorMessage = "Введите индекс профессионального модуля")]
+        [Display(Name = "Индекс профессионального модуля")]
+        public string IndexProfModule { get; set; }
+
+        [Required(ErrorMessage = "Введите название профессионального модуля")]
+        [Display(Name = "Название профессионального модуля")]
+        public string ProfModule { get; set; }
+
+        [Required(ErrorMessage = "Введите индекс")]
+        [Display(Name = "Индекс")]
+        public string Index { get; set; }
+
+        [Required(ErrorMessage = "Введите название")]
+        [Display(Name = "Название")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "Введите краткое название")]
+        [Display(Name = "Краткое название")]
+        public string ShortName { get; set; }
 
         // так как у каждого пользователя (преподавателя) свой список дисциплин, то нужно указывать внешний ключ
         [Required]

@@ -1,4 +1,4 @@
-﻿@model EducateApp.ViewModels.Attestations.EditAttestationViewModel
+﻿@model EducateApp.ViewModels.TypesOfTotals.EditTypeOfTotalViewModel
 
 @{
     ViewData["Title"] = "Изменение - Аттестации";
@@ -7,7 +7,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Главная</a></li>
-        <li class="breadcrumb-item"><a asp-controller="Attestations" asp-action="Index">Аттестации</a></li>
+        <li class="breadcrumb-item"><a asp-controller="TypesOfTotals" asp-action="Index">Аттестации</a></li>
         <li class="breadcrumb-item active">Изменение</li>
     </ol>
 </nav>
@@ -22,13 +22,13 @@
 
 <div class="row">
     <div class="col-md-5">
-        <form asp-controller="Attestations" asp-action="Edit">
+        <form asp-controller="TypesOfTotals" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Attest" class="control-label"></label>
-                <input asp-for="Attest" class="form-control" />
-                <span asp-validation-for="Attest" class="text-danger"></span>
+                <label asp-for="CertificateName" class="control-label"></label>
+                <input asp-for="CertificateName" class="form-control" />
+                <span asp-validation-for="CertificateName" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="IdUser" />
             <div class="form-group">

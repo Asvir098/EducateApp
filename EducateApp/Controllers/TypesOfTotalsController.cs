@@ -1,6 +1,6 @@
 ﻿using EducateApp.Models;
 using EducateApp.Models.Data;
-using EducateApp.ViewModels.Attestations;
+using EducateApp.ViewModels.TypesOfTotals;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 namespace EducateApp.Controllers
 {
     [Authorize(Roles = "admin, registeredUser")]
-    public class AttestationsController : Controller
+    public class TypesOfTotalsController : Controller
     {
         private readonly AppCtx _context;
         private readonly UserManager<User> _userManager;
 
-        public AttestationsController(
+        public TypesOfTotalsController(
             AppCtx context,
             UserManager<User> user)
         {
@@ -31,10 +31,10 @@ namespace EducateApp.Controllers
             IdentityUser user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
 
             // через контекст данных получаем доступ к таблице базы данных Attestations
-            var appCtx = _context.Attestations
+            var appCtx = _context.TypesOfTotals
                 .Include(a => a.User)                // и связываем с таблицей пользователи через класс User
                 .Where(a => a.IdUser == user.Id)     // устанавливается условие с выбором записей дисциплин текущего пользователя по его Id
-                .OrderBy(a => a.Attest);          // сортируем все записи по имени аттустации
+                .OrderBy(a => a.CertificateName);          // сортируем все записи по имени аттустации
 
             // возвращаем в представление полученный список записей
             return View(await appCtx.ToListAsync());
@@ -48,22 +48,22 @@ namespace EducateApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateAttestationViewModel model)
+        public async Task<IActionResult> Create(CreateTypeOfTotalViewModel model)
         {
             IdentityUser user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
 
-            if (_context.Attestations
+            if (_context.TypesOfTotals
                 .Where(a => a.IdUser == user.Id &&
-                a.Attest == model.Attest).FirstOrDefault() != null)
+                a.CertificateName == model.CertificateName).FirstOrDefault() != null)
             {
                 ModelState.AddModelError("", "Введеныя аттестация уже существует");
             }
 
             if (ModelState.IsValid)
             {
-                Attestation attestation = new()
+                TypeOfTotal attestation = new()
                 {
-                    Attest = model.Attest,
+                    CertificateName = model.CertificateName,
                     IdUser = user.Id
                 };
 
@@ -82,16 +82,16 @@ namespace EducateApp.Controllers
                 return NotFound();
             }
 
-            var attestation = await _context.Attestations.FindAsync(id);
+            var attestation = await _context.TypesOfTotals.FindAsync(id);
             if (attestation == null)
             {
                 return NotFound();
             }
 
-            EditAttestationViewModel model = new()
+            EditTypeOfTotalViewModel model = new()
             {
                 Id = attestation.Id,
-                Attest = attestation.Attest,
+                CertificateName = attestation.CertificateName,
                 IdUser = attestation.IdUser
             };
 
@@ -100,18 +100,18 @@ namespace EducateApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(short id, EditAttestationViewModel model)
+        public async Task<IActionResult> Edit(short id, EditTypeOfTotalViewModel model)
         {
             IdentityUser user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
 
-            if (_context.Attestations
+            if (_context.TypesOfTotals
                 .Where(a => a.IdUser == user.Id &&
-                a.Attest == model.Attest).FirstOrDefault() != null)
+                a.CertificateName == model.CertificateName).FirstOrDefault() != null)
             {
                 ModelState.AddModelError("", "Введеныя аттестация уже существует");
             }
 
-            Attestation attestation = await _context.Attestations.FindAsync(id);
+            TypeOfTotal attestation = await _context.TypesOfTotals.FindAsync(id);
 
             if (id != attestation.Id)
             {
@@ -122,7 +122,7 @@ namespace EducateApp.Controllers
             {
                 try
                 {
-                    attestation.Attest = model.Attest;
+                    attestation.CertificateName = model.CertificateName;
                     _context.Update(attestation);
                     await _context.SaveChangesAsync();
                 }
@@ -150,7 +150,7 @@ namespace EducateApp.Controllers
                 return NotFound();
             }
 
-            var attestation = await _context.Attestations
+            var attestation = await _context.TypesOfTotals
                 .Include(a => a.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (attestation == null)
@@ -166,8 +166,8 @@ namespace EducateApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(short id)
         {
-            var attestation = await _context.Attestations.FindAsync(id);
-            _context.Attestations.Remove(attestation);
+            var attestation = await _context.TypesOfTotals.FindAsync(id);
+            _context.TypesOfTotals.Remove(attestation);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -180,7 +180,7 @@ namespace EducateApp.Controllers
                 return NotFound();
             }
 
-            var attestation = await _context.Attestations
+            var attestation = await _context.TypesOfTotals
                 .Include(a => a.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
@@ -194,7 +194,7 @@ namespace EducateApp.Controllers
 
         private bool AttestationExists(short id)
         {
-            return _context.Attestations.Any(e => e.Id == id);
+            return _context.TypesOfTotals.Any(e => e.Id == id);
         }
     }
 }

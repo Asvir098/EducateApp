@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EducateApp.Models.Data.Attestation>
+﻿@model IEnumerable<EducateApp.Models.Data.TypeOfTotal>
 
 @{
     ViewData["Title"] = "Index";
@@ -22,7 +22,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Attest)
+                @Html.DisplayNameFor(model => model.CertificateName)
             </th>
             <th></th>
         </tr>
@@ -32,7 +32,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Attest)
+                    @Html.DisplayFor(modelItem => item.CertificateName)
                 </td>
                 <td>
                     <a class="btn text-dark" asp-action="Details" asp-route-id="@item.Id" title="Посмотреть подробнее">

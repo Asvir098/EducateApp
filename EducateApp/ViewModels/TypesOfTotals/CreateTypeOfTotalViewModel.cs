@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EducateApp.ViewModels.Attestations
+namespace EducateApp.ViewModels.TypesOfTotals
 {
-    public class CreateAttestationViewModel
+    public class CreateTypeOfTotalViewModel
     {
         [Required(ErrorMessage = "Введите название аттестации")]
         [Display(Name = "Аттестация")]
-        public string Attest { get; set; }
+        public string CertificateName { get; set; }
     }
 }

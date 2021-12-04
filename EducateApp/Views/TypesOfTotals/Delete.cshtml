@@ -1,4 +1,4 @@
-﻿@model EducateApp.Models.Data.Attestation
+﻿@model EducateApp.Models.Data.TypeOfTotal
 
 @{
     ViewData["Title"] = "Delete";
@@ -7,7 +7,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Главная</a></li>
-        <li class="breadcrumb-item"><a asp-controller="Attestations" asp-action="Index">Аттестации</a></li>
+        <li class="breadcrumb-item"><a asp-controller="TypesOfTotals" asp-action="Index">Аттестации</a></li>
         <li class="breadcrumb-item active">Удаление</li>
     </ol>
 </nav>
@@ -27,10 +27,10 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.Attest)
+            @Html.DisplayNameFor(model => model.CertificateName)
         </dt>
         <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.Attest)
+            @Html.DisplayFor(model => model.CertificateName)
         </dd>
     </dl>
 

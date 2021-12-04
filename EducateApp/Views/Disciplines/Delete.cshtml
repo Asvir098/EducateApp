@@ -26,14 +26,46 @@
     </h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-3">
-            @Html.DisplayNameFor(model => model.Discip)
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.IndexProfModule)
         </dt>
-        <dd class = "col-sm-9">
-            @Html.DisplayFor(model => model.Discip)
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.IndexProfModule)
         </dd>
     </dl>
-    
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.ProfModule)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.ProfModule)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Index)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Index)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.ShortName)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.ShortName)
+        </dd>
+    </dl>
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Удалить" class="btn btn-danger" />

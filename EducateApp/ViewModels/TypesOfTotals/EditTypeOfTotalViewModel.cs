@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EducateApp.ViewModels.Attestations
+namespace EducateApp.ViewModels.TypesOfTotals
 {
-    public class EditAttestationViewModel
+    public class EditTypeOfTotalViewModel
     {
         public short Id { get; set; }
 
         [Required(ErrorMessage = "Введите название аттестации")]
         [Display(Name = "Аттестация")]
-        public string Attest { get; set; }
+        public string CertificateName { get; set; }
 
         public string IdUser { get; set; }
     }

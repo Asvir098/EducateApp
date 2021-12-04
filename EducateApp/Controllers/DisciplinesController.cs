@@ -34,7 +34,7 @@ namespace EducateApp.Controllers
             var appCtx = _context.Disciplines
                 .Include(d => d.User)                // и связываем с таблицей пользователи через класс User
                 .Where(d => d.IdUser == user.Id)     // устанавливается условие с выбором записей дисциплин текущего пользователя по его Id
-                .OrderBy(d => d.Discip);          // сортируем все записи по имени дисциплины
+                .OrderBy(d => d.Name);          // сортируем все записи по имени дисциплины
 
             // возвращаем в представление полученный список записей
             return View(await appCtx.ToListAsync());
@@ -54,7 +54,9 @@ namespace EducateApp.Controllers
 
             if (_context.Disciplines
                 .Where(d => d.IdUser == user.Id &&
-                d.Discip == model.Discip).FirstOrDefault() != null)
+                d.Index == model.Index &&
+                d.Name == model.Name &&
+                d.ShortName == model.ShortName).FirstOrDefault() != null)
             {
                 ModelState.AddModelError("", "Введеныя дисциплина уже существует");
             }
@@ -63,7 +65,11 @@ namespace EducateApp.Controllers
             {
                 Discipline discipline = new()
                 {
-                    Discip = model.Discip,
+                    IndexProfModule = model.IndexProfModule,
+                    ProfModule = model.ProfModule,
+                    Index = model.Index,
+                    Name = model.Name,
+                    ShortName = model.ShortName,
                     IdUser = user.Id
                 };
 
@@ -91,7 +97,11 @@ namespace EducateApp.Controllers
             EditDisciplineViewModel model = new()
             {
                 Id = discipline.Id,
-                Discip = discipline.Discip,
+                IndexProfModule = discipline.IndexProfModule,
+                ProfModule = discipline.ProfModule,
+                Index = discipline.Index,
+                Name = discipline.Name,
+                ShortName = discipline.ShortName,
                 IdUser = discipline.IdUser
             };
 
@@ -106,9 +116,11 @@ namespace EducateApp.Controllers
 
             if (_context.Disciplines
                 .Where(d => d.IdUser == user.Id &&
-                d.Discip == model.Discip).FirstOrDefault() != null)
+                d.Index == model.Index &&
+                d.Name == model.Name &&
+                d.ShortName == model.ShortName).FirstOrDefault() != null)
             {
-                ModelState.AddModelError("", "Введеныя аттестация уже существует");
+                ModelState.AddModelError("", "Введеныя дисциплина уже существует");
             }
 
             Discipline discipline = await _context.Disciplines.FindAsync(id);
@@ -122,7 +134,11 @@ namespace EducateApp.Controllers
             {
                 try
                 {
-                    discipline.Discip = model.Discip;
+                    discipline.IndexProfModule = model.IndexProfModule;
+                    discipline.ProfModule = model.ProfModule;
+                    discipline.Index = model.Index;
+                    discipline.Name = model.Name;
+                    discipline.ShortName = model.ShortName;
                     _context.Update(discipline);
                     await _context.SaveChangesAsync();
                 }
