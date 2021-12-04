@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EducateApp.Models.Data
@@ -23,5 +24,8 @@ namespace EducateApp.Models.Data
         // свойство нужно для белее правильного отображения данных в представлении
         [ForeignKey("IdUser")]
         public User User { get; set; }
+
+        [Required]
+        public ICollection<Specialty> Specialties { get; set; }
     }
 }

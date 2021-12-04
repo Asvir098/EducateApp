@@ -30,7 +30,7 @@
                             // то он видит вкладку "Главная"
                             <ul class="navbar-nav flex-grow">
                                 <li>
-                                    <a class="nav-link text-dark" asp-controller="Account" asp-action="Login" title="Главная">
+                                    <a class="nav-link text-dark" asp-controller="Home" asp-action="Index" title="Главная">
                                         <i class="fas fa-home"></i>
                                     </a>
                                 </li>
@@ -50,15 +50,10 @@
                                         <i class="fas fa-chalkboard-teacher"></i> Информация об обучении
                                     </a>
                                     <div class="dropdown-menu">
-                                        <div class="dropdown-item">
-                                            <a class="dropdown-item text-dark" asp-controller="FormsOfStudy" asp-action="Index">Форма обучения</a>
-                                        </div>
-                                        <div class="dropdown-item">
-                                            <a class="dropdown-item text-dark" asp-controller="Disciplines" asp-action="Index">Дисциплина</a>
-                                        </div>
-                                        <div class="dropdown-item">
-                                            <a class="dropdown-item text-dark" asp-controller="TypesOfTotals" asp-action="Index">Аттестации</a>
-                                        </div>
+                                        <a class="dropdown-item text-dark" asp-controller="FormsOfStudy" asp-action="Index">Форма обучения</a>
+                                        <a class="dropdown-item text-dark" asp-controller="Disciplines" asp-action="Index">Дисциплина</a>
+                                        <a class="dropdown-item text-dark" asp-controller="TypesOfTotals" asp-action="Index">Аттестации</a>
+                                        <a class="dropdown-item text-dark" asp-controller="Specialties" asp-action="Index">Специальности</a>
                                     </div>
                                     
                                 </li>
