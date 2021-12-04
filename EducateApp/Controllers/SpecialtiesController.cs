@@ -102,17 +102,31 @@ namespace EducateApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdFormOfStudy"] = new SelectList(_context.FormsOfStudy, "Id", "FormOfEdu", specialty.IdFormOfStudy);
-            return View(specialty);
+            EditSpecialtyViewModel model = new()
+            {
+                Id = specialty.Id,
+                Code = specialty.Code,
+                Name = specialty.Name,
+                IdFormOfStudy = specialty.IdFormOfStudy
+            };
+
+            IdentityUser user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+
+            // в списке в качестве текущего элемента устанавливаем значение из базы данных,
+            // указываем параметр specialty.IdFormOfStudy
+            ViewData["IdFormOfStudy"] = new SelectList(
+                _context.FormsOfStudy.Where(w => w.IdUser == user.Id),
+                "Id", "FormOfEdu", specialty.IdFormOfStudy);
+            return View(model);
         }
 
         // POST: Specialties/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(short id, [Bind("Id,Code,Name,IdFormOfStudy")] Specialty specialty)
+        public async Task<IActionResult> Edit(short id, EditSpecialtyViewModel model)
         {
+            Specialty specialty = await _context.Specialties.FindAsync(id);
+
             if (id != specialty.Id)
             {
                 return NotFound();
@@ -122,6 +136,9 @@ namespace EducateApp.Controllers
             {
                 try
                 {
+                    specialty.Code = model.Code;
+                    specialty.Name = model.Name;
+                    specialty.IdFormOfStudy = model.IdFormOfStudy;
                     _context.Update(specialty);
                     await _context.SaveChangesAsync();
                 }
@@ -138,8 +155,12 @@ namespace EducateApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdFormOfStudy"] = new SelectList(_context.FormsOfStudy, "Id", "FormOfEdu", specialty.IdFormOfStudy);
-            return View(specialty);
+            IdentityUser user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+
+            ViewData["IdFormOfStudy"] = new SelectList(
+                _context.FormsOfStudy.Where(w => w.IdUser == user.Id),
+                "Id", "FormOfEdu", specialty.IdFormOfStudy);
+            return View(model);
         }
 
         // GET: Specialties/Delete/5

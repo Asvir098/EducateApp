@@ -14,7 +14,7 @@
 
 <h6>
     <a class="btn text-dark" asp-action="Create">
-        <i class="far fa-plus-square"></i> Добавить специальность
+        <i class="fas fa-plus-square"></i> Добавить специальность
     </a>
 </h6>
 
@@ -48,14 +48,14 @@
                         @Html.DisplayFor(modelItem => item.FormOfStudy.FormOfEdu)
                     </td>
                     <td>
-                        <a class="btn text-dark" title="Редактировать">
-                            <i class="far fa-eye"></i>
+                        <a class="btn text-dark" asp-action="Details" asp-route-id="@item.Id" title="Просмотреть подробнее">
+                            <i class="fas fa-eye"></i>
                         </a> |
                         <a class="btn text-dark" asp-action="Edit" asp-route-id="@item.Id" title="Редактировать">
-                            <i class="far fa-pencil-alt"></i>
+                            <i class="fas fa-pencil-alt"></i>
                         </a> |
                         <a class="btn text-dark" asp-action="Delete" asp-route-id="@item.Id" title="Удалить">
-                            <i class="far fa-minus-square"></i>
+                            <i class="fas fa-minus-square"></i>
                         </a>
                     </td>
                 </tr>
