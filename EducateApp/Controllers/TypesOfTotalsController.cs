@@ -25,19 +25,26 @@ namespace EducateApp.Controllers
         }
 
         // GET: Attestations
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(TypeOfTotalSortState sortOrder = TypeOfTotalSortState.CertificateNameAsc)
         {
             // находим информацию о пользователе, который вошел в систему по его имени
             IdentityUser user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
 
             // через контекст данных получаем доступ к таблице базы данных Attestations
-            var appCtx = _context.TypesOfTotals
+            var typesOfTotals = _context.TypesOfTotals
                 .Include(a => a.User)                // и связываем с таблицей пользователи через класс User
-                .Where(a => a.IdUser == user.Id)     // устанавливается условие с выбором записей дисциплин текущего пользователя по его Id
-                .OrderBy(a => a.CertificateName);          // сортируем все записи по имени аттустации
+                .Where(a => a.IdUser == user.Id);     // устанавливается условие с выбором записей дисциплин текущего пользователя по его Id
+
+            ViewData["CertificateNameSort"] = sortOrder == TypeOfTotalSortState.CertificateNameAsc ? TypeOfTotalSortState.CertificateNameDesc : TypeOfTotalSortState.CertificateNameAsc;
+
+            typesOfTotals = sortOrder switch
+            {
+                TypeOfTotalSortState.CertificateNameDesc => typesOfTotals.OrderByDescending(s => s.CertificateName),
+                _ => typesOfTotals.OrderBy(s => s.CertificateName),
+            };
 
             // возвращаем в представление полученный список записей
-            return View(await appCtx.ToListAsync());
+            return View(await typesOfTotals.AsNoTracking().ToListAsync());
         }
 
         // GET: Attestations/Create

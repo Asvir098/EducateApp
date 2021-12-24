@@ -51,7 +51,7 @@
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
-                        <a class="btn text-dark" asp-action="Details" asp-route-id="@item.Id" title="Посмотреть подробнее" id="details">
+                        <a class="btn text-dark details" asp-action="Details" asp-route-id="@item.Id" title="Посмотреть подробнее">
                             <i class="far fa-eye"></i>
                         </a> |
                         <a class="btn text-dark" asp-action="Edit" asp-route-id="@item.Id" title="Редактировать">
@@ -73,7 +73,7 @@
 
     $(function () {
         $.ajaxSetup({ cache: false });
-        $("#details").click(function (e) {
+        $(".details").click(function (e) {
 
             e.preventDefault();
             $.get(this.href, function (data) {

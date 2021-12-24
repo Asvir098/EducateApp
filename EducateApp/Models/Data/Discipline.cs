@@ -11,11 +11,11 @@ namespace EducateApp.Models.Data
         [Display(Name = "Идентификатор")]
         public short Id { get; set; }
 
-        [Required(ErrorMessage = "Введите индекс профессионального модуля")]
+        
         [Display(Name = "Индекс профессионального модуля")]
         public string IndexProfModule { get; set; }
 
-        [Required(ErrorMessage = "Введите название профессионального модуля")]
+        
         [Display(Name = "Название профессионального модуля")]
         public string ProfModule { get; set; }
 
