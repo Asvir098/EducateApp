@@ -16,11 +16,22 @@
     <div id="dialogContent" class="modal-dialog"></div>
 </div>
 
-<h6>
-    <a class="btn text-dark" asp-action="Create">
-        <i class="far fa-plus-square"></i> Добавить дисциплину
-    </a>
-</h6>
+<div class="d-flex justify-content-between">
+    <div class="p-2">
+        <ul class="nav">
+            <li>
+                <a class="btn text-dark" asp-action="DownloadPattern" title="Скачать шаблон">
+                    <i class="fas fa-file-download"></i>
+                </a>
+            </li>
+            <li>
+                <a class="btn text-dark" asp-action="Create">
+                    <i class="far fa-plus-square"></i>  Добавить дисциплину
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
 
 <div class="table-responsive">
     <table class="table">
