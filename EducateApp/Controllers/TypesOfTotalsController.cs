@@ -189,7 +189,7 @@ namespace EducateApp.Controllers
                 return NotFound();
             }
 
-            return View(attestation);
+            return PartialView(attestation);
         }
 
         private bool AttestationExists(short id)

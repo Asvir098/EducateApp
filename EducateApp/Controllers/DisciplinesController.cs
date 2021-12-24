@@ -205,7 +205,7 @@ namespace EducateApp.Controllers
                 return NotFound();
             }
 
-            return View(discipline);
+            return PartialView(discipline);
         }
 
         private bool DisciplineExists(short id)
